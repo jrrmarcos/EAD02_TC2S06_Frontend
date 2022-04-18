@@ -1,0 +1,28 @@
+<div>
+  <h1 class="titulo">Biblioteca Online</h1>
+
+  <h3 class="subtitulo" *ngIf="listaLivro.length > 0">Livros Cadastrados:</h3>
+  <h3 class="subtitulo-alert" *ngIf="listaLivro.length == 0">Nenhum Livro Cadastrado!</h3>
+
+  <table class="table">
+    <tr class="headerLine">
+      <th class="columns">Título</th>
+      <th class="columns">Descrição</th>
+      <th class="columns">Preço</th>
+    </tr>
+    <tr class="column" *ngFor="let livro of listaLivro" (click)='selecionar(livro)'>
+      <td>{{livro.titulo}}</td>
+      <td>{{livro.descricao}}</td>
+      <td>{{livro.preco | currency}}</td>
+    </tr>
+  </table>
+  <br />
+
+  <button><a routerLink="/cadastro">Novo Cadastro</a></button>
+
+</div>
+
+
+<footer>
+  Desenvolvido por Marcos Júnior SC3003302
+</footer>

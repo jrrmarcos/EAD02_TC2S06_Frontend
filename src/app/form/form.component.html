@@ -1,0 +1,31 @@
+<div>
+  <h1 class="titulo">Biblioteca Online</h1>
+
+  <div [formGroup]="livroForm" (ngSubmit)="onSubmit()">
+
+    <label class="label" for=""><strong>Título:</strong></label>
+    <input formControlName="titulo" class="input" type="text">
+
+    <label class="label" for=""><strong>Descrição:</strong></label>
+    <input formControlName="descricao" class="input" type="text">
+
+    <label class="label" for=""><strong>Valor:</strong></label>
+    <input formControlName="preco" class="input" type="number">
+
+    <div *ngIf="router.url === '/cadastro'">
+      <button (click)="novoLivro()">Confirmar</button>
+      <button><a routerLink="">Voltar</a></button>
+    </div>
+
+    <div *ngIf="router.url !== '/cadastro'">
+      <button (click)="atualizarLivro()">Alterar</button>
+      <button (click)="deletarLivro()">Deletar</button>
+
+      <button><a routerLink="">Voltar</a></button>
+    </div>
+  </div>
+
+  <footer>
+    Desenvolvido por Marcos Júnior SC3003302
+  </footer>
+</div>
