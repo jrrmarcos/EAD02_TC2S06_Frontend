@@ -7,12 +7,14 @@ import { LivrosComponent } from './livros/livros.component';
 import { FormComponent } from './form/form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormCadastroComponent } from './form-cadastro/form-cadastro.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LivrosComponent,
-    FormComponent
+    FormComponent,
+    FormCadastroComponent
   ],
   imports: [
     BrowserModule,

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LivrosComponent } from './livros/livros.component';
 import { FormComponent } from './form/form.component';
+import { FormCadastroComponent } from './form-cadastro/form-cadastro.component';
 
 const routes: Routes = [
 {
@@ -10,7 +11,7 @@ const routes: Routes = [
 },
 {
   path: 'cadastro', 
-  component: FormComponent},
+  component: FormCadastroComponent},
 {
   path: 'selected/:id', 
   component: FormComponent}
