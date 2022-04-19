@@ -28,14 +28,14 @@ export class FormComponent implements OnInit {
   atualizarLivro(): void {
     this.bookService.atualizar(this.livroForm.value, this.selectedBookById._id).subscribe(res => {
       res.ok ? alert('Registro alterado com sucesso!') : alert('Falha ao alterar o registro.');
-      location.assign('/');
+      this.router.navigate(['/']);
     });
   }
 
   deletarLivro(): void {
     this.bookService.deletar(this.selectedBookById._id).subscribe(res => {
       res.ok ? alert('Registro deletado com sucesso!') : alert('Falha ao deletar o registro.');
-      location.assign('/');
+      this.router.navigate(['/']);
     });
   }
 
@@ -52,7 +52,7 @@ export class FormComponent implements OnInit {
       });
     } else {
       alert('Url inválida!')
-      location.assign('/')
+      this.router.navigate(['/']);
     }
   }
 

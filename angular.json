@@ -120,6 +120,9 @@
               "devServerTarget": "frontend-angular-ead2tc2:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

@@ -23,7 +23,7 @@ export class FormCadastroComponent implements OnInit {
   novoLivro(): void {
     this.bookService.cadastrar(this.livroForm.value).subscribe(res => {
       res.ok ? alert('Livro cadastrado com sucesso!') : alert('Falha ao cadastrar novo livro.');
-      location.assign('/');
+      this.router.navigate(['/']);
     });
   }
 

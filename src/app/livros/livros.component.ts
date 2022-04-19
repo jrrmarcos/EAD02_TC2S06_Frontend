@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Livro } from '../model/Livro';
 import { LivroService } from '../livro.service';
 import { Router } from '@angular/router';
+import { ɵangular_packages_platform_browser_platform_browser_k } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-livros',
@@ -27,7 +28,8 @@ export class LivrosComponent implements OnInit {
   }
 
   selecionar(book: Livro): void {
-    location.assign('/selected/' + book._id);
+    const idLivro = book._id
+    this.router.navigate(['selected/' + idLivro])
   }
 
 }

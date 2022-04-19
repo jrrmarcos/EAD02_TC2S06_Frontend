@@ -6,15 +6,17 @@ import { FormCadastroComponent } from './form-cadastro/form-cadastro.component';
 
 const routes: Routes = [
 {
-  path: '', 
+  path: '', //Ajustado para compor o deploy
   component: LivrosComponent
 },
 {
   path: 'cadastro', 
-  component: FormCadastroComponent},
+  component: FormCadastroComponent
+},
 {
   path: 'selected/:id', 
-  component: FormComponent}
+  component: FormComponent
+}
 ];
 
 @NgModule({

@@ -1,8 +1,12 @@
 # EAD02 Tópicos para Computação 2
 Projeto frontend em Angular realizado para a disciplina de TC2, do IFSP São Carlos, como método de estudo e avaliação do EAD 2.
 
+## Frontend
+Links:
+- [Github Pages](https://jrrmarcos.github.io/EAD02_TC2S06_Frontend/)
+
 ## Backend
-Antes de iniciar a utlização do projeto, acessar o servidor de backend para início do mesmo.
+Antes de iniciar a utlização do projeto, acessar o servidor de backend para que ele seja inicializado.
 Links:
 - [Servidor de backend](https://sc3003302.glitch.me/api/produtos)
 - [Repositório do backend](https://github.com/jrrmarcos/EAD02_TC2S06_Backend)
