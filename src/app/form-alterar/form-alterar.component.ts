@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Livro } from '../model/Livro';
-import { LivroService } from '../livro.service';
-import { Router } from '@angular/router';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LivroService } from '../livro.service';
+import { Livro } from '../model/Livro';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css']
+  selector: 'app-form-alterar',
+  templateUrl: './form-alterar.component.html',
+  styleUrls: ['./form-alterar.component.css']
 })
-export class FormComponent implements OnInit {
+export class FormAlterarComponent implements OnInit {
 
   livroForm!: FormGroup;
   selectedId!: string;
@@ -17,24 +17,17 @@ export class FormComponent implements OnInit {
 
   constructor(private bookService: LivroService,
     public router: Router) { }
-
+    
   ngOnInit(): void {
     this.initForm();
     if (this.router.url !== '') {
       this.getId();
     }
   }
-
+  
   atualizarLivro(): void {
     this.bookService.atualizar(this.livroForm.value, this.selectedBookById._id).subscribe(res => {
       res.ok ? alert('Registro alterado com sucesso!') : alert('Falha ao alterar o registro.');
-      this.router.navigate(['/']);
-    });
-  }
-
-  deletarLivro(): void {
-    this.bookService.deletar(this.selectedBookById._id).subscribe(res => {
-      res.ok ? alert('Registro deletado com sucesso!') : alert('Falha ao deletar o registro.');
       this.router.navigate(['/']);
     });
   }
@@ -67,5 +60,4 @@ export class FormComponent implements OnInit {
   onSubmit(): void {
     console.log(this.livroForm.value);
   }
-
 }

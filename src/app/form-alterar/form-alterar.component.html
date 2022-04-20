@@ -1,0 +1,22 @@
+<div>
+    <h1 class="titulo">Biblioteca Online</h1>
+
+    <div [formGroup]="livroForm" (ngSubmit)="onSubmit()">
+
+        <label class="label"><strong>Título:</strong></label>
+        <input formControlName="titulo" class="input" type="text">
+
+        <label class="label"><strong>Descrição:</strong></label>
+        <input formControlName="descricao" class="input" type="text">
+
+        <label class="label"><strong>Valor:</strong></label>
+        <input formControlName="preco" class="input" type="number"><br>
+
+        <button class="button2" (click)="atualizarLivro()"><strong>Alterar</strong></button>
+
+        <button routerLink="">Voltar</button>
+    </div>
+</div>
+<footer>
+    Desenvolvido por Marcos Júnior SC3003302
+</footer>

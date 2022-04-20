@@ -26,10 +26,4 @@ export class LivrosComponent implements OnInit {
       this.listaLivro = res;
     });
   }
-
-  selecionar(book: Livro): void {
-    const idLivro = book._id
-    this.router.navigate(['selected/' + idLivro])
-  }
-
 }
