@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LivroService } from '../livro.service';
-import { Livro } from '../model/Livro';
 
 @Component({
   selector: 'app-form-cadastro',
@@ -14,17 +13,21 @@ export class FormCadastroComponent implements OnInit {
   livroForm!: FormGroup;
 
   constructor(private bookService: LivroService,
-              public router: Router) { }
+    public router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
   }
 
   novoLivro(): void {
-    this.bookService.cadastrar(this.livroForm.value).subscribe(res => {
-      res.ok ? alert('Livro cadastrado com sucesso!') : alert('Falha ao cadastrar novo livro.');
-      this.router.navigate(['/']);
-    });
+    if (this.livroForm.valid) {
+      this.bookService.cadastrar(this.livroForm.value).subscribe(res => {
+        res.ok ? alert('Livro cadastrado com sucesso!') : alert('Falha ao cadastrar novo livro.');
+        this.router.navigate(['/']);
+      });
+    } else {
+      this.initForm()
+    }
   }
 
   initForm(): void {

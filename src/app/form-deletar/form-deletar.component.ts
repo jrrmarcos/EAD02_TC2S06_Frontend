@@ -17,7 +17,7 @@ export class FormDeletarComponent implements OnInit {
 
   constructor(private bookService: LivroService,
     public router: Router) { }
-    
+
   ngOnInit(): void {
     this.initForm();
     if (this.router.url !== '') {
@@ -26,10 +26,14 @@ export class FormDeletarComponent implements OnInit {
   }
 
   deletarLivro(): void {
-    this.bookService.deletar(this.selectedBookById._id).subscribe(res => {
-      res.ok ? alert('Registro deletado com sucesso!') : alert('Falha ao deletar o registro.');
-      this.router.navigate(['/']);
-    });
+    if (this.livroForm.valid) {
+      this.bookService.deletar(this.selectedBookById._id).subscribe(res => {
+        res.ok ? alert('Registro deletado com sucesso!') : alert('Falha ao deletar o registro.');
+        this.router.navigate(['/']);
+      });
+    } else {
+      this.initForm()
+    }
   }
 
   getId(): void {

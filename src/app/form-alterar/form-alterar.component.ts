@@ -17,19 +17,23 @@ export class FormAlterarComponent implements OnInit {
 
   constructor(private bookService: LivroService,
     public router: Router) { }
-    
+
   ngOnInit(): void {
     this.initForm();
     if (this.router.url !== '') {
       this.getId();
     }
   }
-  
+
   atualizarLivro(): void {
-    this.bookService.atualizar(this.livroForm.value, this.selectedBookById._id).subscribe(res => {
-      res.ok ? alert('Registro alterado com sucesso!') : alert('Falha ao alterar o registro.');
-      this.router.navigate(['/']);
-    });
+    if (this.livroForm.valid) {
+      this.bookService.atualizar(this.livroForm.value, this.selectedBookById._id).subscribe(res => {
+        res.ok ? alert('Registro alterado com sucesso!') : alert('Falha ao alterar o registro.');
+        this.router.navigate(['/']);
+      });
+    } else {
+      this.initForm();
+    }
   }
 
   getId(): void {
