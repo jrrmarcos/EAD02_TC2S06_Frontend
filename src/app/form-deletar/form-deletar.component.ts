@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LivroService } from '../livro.service';
 import { Livro } from '../model/Livro';
+import { toast } from 'bulma-toast'
 
 @Component({
   selector: 'app-form-deletar',
@@ -12,44 +13,28 @@ import { Livro } from '../model/Livro';
 export class FormDeletarComponent implements OnInit {
 
   livroForm!: FormGroup;
-  selectedId!: string;
-  selectedBookById!: Livro;
+  book: Livro
 
   constructor(private bookService: LivroService,
-    public router: Router) { }
+    public router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.initForm();
-    if (this.router.url !== '') {
-      this.getId();
-    }
+    this.initForm()
+    const id = this.route.snapshot.paramMap.get('id')
+    this.bookService.listarLivro(id).subscribe(book => {
+      this.book = book
+    })
   }
 
   deletarLivro(): void {
     if (this.livroForm.valid) {
-      this.bookService.deletar(this.selectedBookById._id).subscribe(res => {
-        res.ok ? alert('Registro deletado com sucesso!') : alert('Falha ao deletar o registro.');
+      this.bookService.deletar(`${this.book._id}`).subscribe(res => {
+        res.ok ? toast({ message: 'Registro deletado com sucesso!', type: 'is-success' }) : ({ message: 'Falha ao deletar!', type: 'is-danger' });
         this.router.navigate(['/']);
       });
     } else {
-      this.initForm()
-    }
-  }
-
-  getId(): void {
-    this.selectedId = (this.router.url.split('/')[2]);
-    if (this.selectedId == this.router.url.split('/')[2]) {
-      this.bookService.listarLivro(this.selectedId).subscribe((book: Livro) => {
-        this.selectedBookById = book;
-        this.livroForm.setValue({
-          titulo: this.selectedBookById.titulo,
-          descricao: this.selectedBookById.descricao,
-          preco: this.selectedBookById.preco,
-        });
-      });
-    } else {
-      alert('Url inválida!')
-      this.router.navigate(['/']);
+      toast({ message: 'Dados ausentes, preencha todos os dados!', type: 'is-danger' })
     }
   }
 
@@ -60,9 +45,4 @@ export class FormDeletarComponent implements OnInit {
       preco: new FormControl(null)
     });
   }
-
-  onSubmit(): void {
-    console.log(this.livroForm.value);
-  }
-
 }

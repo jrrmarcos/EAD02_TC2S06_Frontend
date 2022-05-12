@@ -21,6 +21,9 @@ const routes: Routes = [
 {
   path: 'alterar/:id',
   component: FormAlterarComponent
+},
+{
+  path: '**', redirectTo: ''
 }
 ];
 

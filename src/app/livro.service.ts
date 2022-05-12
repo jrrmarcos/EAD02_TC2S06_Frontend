@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Livro } from './model/Livro';
-import { ɵangular_packages_platform_browser_platform_browser_k } from '@angular/platform-browser';
-import { LocationStrategy } from '@angular/common';
 import { Router } from '@angular/router';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { toast } from 'bulma-toast'
+import { Observable, EMPTY } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,44 +14,50 @@ export class LivroService {
   baseURL = 'https://sc3003302.glitch.me/api';
 
   constructor(private http: HttpClient,
-              private router: Router) { }
+    private router: Router) { }
+
+
+  tratamentodeErros(e: any): Observable<any> {
+    toast({ message: 'Ocorreu um erro!', type: 'is-danger' })
+    console.clear()
+    this.router.navigate(['/people'])
+    return EMPTY
+  }
 
   listarLivro(id: string): Observable<Livro> {
-    return this.http.get<Livro>(this.baseURL + '/produtos/' + id);
+    return this.http.get<Livro>(this.baseURL + '/produtos/' + id).pipe(
+      map(obj => obj),
+      catchError(e => this.tratamentodeErros(e))
+    )
   }
 
   listarLivros(): Observable<Livro[]> {
-    return this.http.get<Livro[]>(this.baseURL + '/produtos');
+    return this.http.get<Livro[]>(this.baseURL + '/produtos').pipe(
+      map(obj => obj),
+      catchError(e => this.tratamentodeErros(e))
+    )
   }
 
-  cadastrar(book: { titulo: string, descricao: string, preco: number }): Observable<any> {
-    let body = new HttpParams();
-    body = body.set('titulo', book.titulo);
-    if (book.titulo == null) {
-      alert('Título não pode estar vazio!')
-    } else {
-      body = body.set('descricao', book.descricao);
-      body = body.set('preco', String(book.preco));
-      return this.http.post(this.baseURL + '/produtos', body, { observe: 'response' });
-    }
-    return this.http.get<Livro[]>(this.baseURL + '/produtos');
+  cadastrar(book: Livro): Observable<Livro> {
+    const url = `${this.baseURL}/produtos/`
+    return this.http.post(url, book, { observe: 'response' }).pipe(
+      map(obj => obj),
+      catchError(e => this.tratamentodeErros(e))
+    )
   }
 
-
-  atualizar(book: { titulo: string, descricao: string, preco: number }, id: string): Observable<any> {
-    let body = new HttpParams();
-    body = body.set('titulo', book.titulo);
-    if (book.titulo == '') {
-      alert('Título não pode estar vazio!')
-    } else {
-      body = body.set('descricao', book.descricao);
-      body = body.set('preco', String(book.preco));
-      return this.http.put(this.baseURL + '/produtos/' + id, body, { observe: 'response' });
-    }  
-    return this.http.get<Livro[]>(this.baseURL + '/produtos');
+  atualizar(book: Livro): Observable<Livro> {
+    const url = `${this.baseURL}/produtos/${book._id}`
+    return this.http.put<Livro>(url, book,{ observe: 'response' }).pipe(
+      map(obj => obj),
+      catchError(e => this.tratamentodeErros(e))
+    )
   }
 
   deletar(id: string): Observable<any> {
-    return this.http.delete(this.baseURL + '/produtos/' + id, { observe: 'response' });
+    return this.http.delete(this.baseURL + '/produtos/' + id, { observe: 'response' }).pipe(
+      map(obj => obj),
+      catchError(e => this.tratamentodeErros(e))
+    )
   }
 }

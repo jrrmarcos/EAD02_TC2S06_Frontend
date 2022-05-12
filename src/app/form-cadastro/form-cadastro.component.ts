@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LivroService } from '../livro.service';
+import { toast } from 'bulma-toast'
+
 
 @Component({
   selector: 'app-form-cadastro',
@@ -19,23 +21,23 @@ export class FormCadastroComponent implements OnInit {
     this.initForm();
   }
 
+  initForm(): void {
+    this.livroForm = new FormGroup({
+      titulo: new FormControl('', Validators.required),
+      descricao: new FormControl('', Validators.required),
+      preco: new FormControl('', Validators.required)
+    });
+  }
+
   novoLivro(): void {
     if (this.livroForm.valid) {
       this.bookService.cadastrar(this.livroForm.value).subscribe(res => {
-        res.ok ? alert('Livro cadastrado com sucesso!') : alert('Falha ao cadastrar novo livro.');
+        toast({message: 'Registro cadastrado com sucesso!', type: 'is-success'})
         this.router.navigate(['/']);
       });
     } else {
-      this.initForm()
+      toast({ message: 'Dados ausentes, preencha todos os campos!', type: 'is-danger'})
     }
-  }
-
-  initForm(): void {
-    this.livroForm = new FormGroup({
-      titulo: new FormControl(null),
-      descricao: new FormControl(null),
-      preco: new FormControl(null)
-    });
   }
 
   onSubmit(): void {

@@ -1,23 +1,25 @@
 <div>
     <h1 class="titulo">Biblioteca Online</h1>
+    <ng-container *ngIf="book">
+        <div [formGroup]="livroForm">
+            <h2>O livro abaixo será removido:</h2>
 
-    <div [formGroup]="livroForm" (ngSubmit)="onSubmit()">
+            <label class="label"><strong>Título:</strong></label>
+            <input placeholder="{{book.titulo}}" class="input" type="text" disabled>
+
+            <label class="label"><strong>Descrição:</strong></label>
+            <textarea placeholder="{{book.descricao}}" class="input" type="text" rows="6" cols="50" disabled></textarea>
+
+            <label class="label"><strong>Valor:</strong></label>
+            <input placeholder="{{book.preco}}" class="input" type="number" disabled><br>
 
 
-        <label class="label"><strong>Título:</strong></label>
-        <input name="titulo" value={{selectedBookById.titulo}} disabled>
-
-        <label class="label"><strong>Descrição:</strong></label>
-        <input name="descricao" value={{selectedBookById.descricao}} disabled>
-
-        <label class="label"><strong>Valor:</strong></label>
-        <input name="preco" value={{selectedBookById.preco}} disabled><br>
-
-        <button class="button2" (click)="deletarLivro()"><strong>Deletar</strong></button>
-
-        <button routerLink="">Voltar</button>
-    </div>
+            <button class="button2" (click)="deletarLivro()"><strong>Confirmar</strong></button>
+            <button routerLink="">Voltar</button>
+        </div>
+    </ng-container>
 </div>
+
 <footer>
     Desenvolvido por Marcos Júnior SC3003302
 </footer>

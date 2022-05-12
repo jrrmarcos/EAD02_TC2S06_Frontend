@@ -1,21 +1,23 @@
 <div>
     <h1 class="titulo">Biblioteca Online</h1>
+    <ng-container *ngIf="book">
+        <div [formGroup]="livroForm">
 
-    <div [formGroup]="livroForm" (ngSubmit)="onSubmit()">
+            <label class="label"><strong>Título:</strong></label>
+            <input formControlName="titulo" [(ngModel)]="book.titulo" class="input" type="text">
 
-        <label class="label"><strong>Título:</strong></label>
-        <input formControlName="titulo" class="input" type="text">
+            <label class="label"><strong>Descrição:</strong></label>
+            <textarea formControlName="descricao" [(ngModel)]="book.descricao" class="textarea" type="textarea" rows="6"
+                cols="50"></textarea>
 
-        <label class="label"><strong>Descrição:</strong></label>
-        <input formControlName="descricao" class="input" type="text">
+            <label class="label"><strong>Valor:</strong></label>
+            <input formControlName="preco" [(ngModel)]="book.preco" class="input" type="number"><br>
 
-        <label class="label"><strong>Valor:</strong></label>
-        <input formControlName="preco" class="input" type="number"><br>
+            <button class="button2" (click)="atualizarLivro()"><strong>Alterar</strong></button>
 
-        <button class="button2" (click)="atualizarLivro()"><strong>Alterar</strong></button>
-
-        <button routerLink="">Voltar</button>
-    </div>
+            <button routerLink="">Voltar</button>
+        </div>
+    </ng-container>
 </div>
 <footer>
     Desenvolvido por Marcos Júnior SC3003302
